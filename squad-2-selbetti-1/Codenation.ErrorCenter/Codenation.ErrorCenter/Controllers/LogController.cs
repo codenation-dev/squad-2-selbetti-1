@@ -2,6 +2,7 @@
 using Codenation.ErrorCenter.Models.DTOs;
 using Codenation.ErrorCenter.Models.Models;
 using Codenation.ErrorCenter.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Codenation.ErrorCenter.Controllers
         {
             return Ok(service.FindAllLogs().Select(x => mapper.Map<LogDTO>(x)));
         }
+
 
         [HttpGet]
         [Route("{id}")]
