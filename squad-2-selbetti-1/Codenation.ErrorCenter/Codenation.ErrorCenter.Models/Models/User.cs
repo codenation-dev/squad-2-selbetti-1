@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Codenation.ErrorCenter.Models
+namespace Codenation.ErrorCenter.Models.Models
 {
     [Table("user")]
     public class User
@@ -27,5 +27,9 @@ namespace Codenation.ErrorCenter.Models
         [StringLength(255)]
         [Required]
         public string Password { get; set; }
+
+        [Column("token")]
+        [StringLength(1000)]
+        public string Token { get; set; }
     }
 }

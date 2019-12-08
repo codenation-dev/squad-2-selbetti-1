@@ -4,8 +4,15 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Codenation.ErrorCenter.Models\Codenation.ErrorCenter.Models.csproj" />
+    <ProjectReference Include="..\Codenation.ErrorCenter.Services\Codenation.ErrorCenter.Services.csproj" />
   </ItemGroup>
 
 </Project>

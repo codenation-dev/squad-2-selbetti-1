@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Codenation.ErrorCenter.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
+using Codenation.ErrorCenter.Models;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Net.Http;
+using Codenation.ErrorCenter.Models.Models;
+using Codenation.ErrorCenter.Models.DTOs;
 
 namespace Codenation.ErrorCenter
 {
@@ -26,6 +34,16 @@ namespace Codenation.ErrorCenter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<ErrorCenterContext>();
+            services.AddScoped<ILogService, LogService>();
+            services.AddScoped<IUserService, UserService>();
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<User, UserDTO>().ReverseMap();
+                cfg.CreateMap<Log, LogDTO>().ReverseMap();
+            });
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

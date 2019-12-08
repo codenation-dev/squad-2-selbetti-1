@@ -5,7 +5,12 @@ using System.Text;
 
 namespace Codenation.ErrorCenter.Models
 {
-    class ErrorCenterContext : DbContext
+    public class ErrorCenterContext : DbContext
     {
+        // this constructor is for enable testing with in-memory data
+        public ErrorCenterContext(DbContextOptions<ErrorCenterContext> options)
+            : base(options)
+        {
+        }
     }
 }

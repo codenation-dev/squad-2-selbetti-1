@@ -1,19 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Codenation.ErrorCenter.Models
+namespace Codenation.ErrorCenter.Models.Models
 {
+    [Table("user")]
     public class Log
     {
-        public int id { get; set; }
-        public string description { get; set; }
-        public string origin { get; set; }
-        public string level { get; set; }
-        public string log { get; set; }
-        public string environment { get; set; }
-        public int frequency { get; set; }
-        public string date { get; set; }
-        public bool isArchived { get; set; }
+        [Column("id")]
+        [Key]
+        public int Id { get; set; }
+
+        [Column("description")]
+        [StringLength(255)]
+        [Required]
+        public string Description { get; set; }
+
+        [Column("origin")]
+        [StringLength(255)]
+        [Required]
+        public string Origin { get; set; }
+
+        [Column("level")]
+        [StringLength(255)]
+        [Required]
+        public string Level { get; set; }
+
+        [Column("data")]
+        [StringLength(2000)]
+        [Required]
+        public string Data { get; set; }
+
+        [Column("environment")]
+        [StringLength(255)]
+        [Required]
+        public string Environment { get; set; }
+
+        [Column("frequency")]
+        [StringLength(255)]
+        [Required]
+        public int Frequency { get; set; }
+
+        [Column("date")]
+        [StringLength(255)]
+        [Required]
+        public string Date { get; set; }
+        
+        [Column("isArchived")]
+        [Required]
+        public bool IsArchived { get; set; }
     }
 }
