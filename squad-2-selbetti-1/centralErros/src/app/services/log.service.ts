@@ -14,10 +14,7 @@ export class log {
   isArquived: boolean;
 }
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
-const apiUrl = 'http://localhost:64172/api';
+const apiUrl = 'http://localhost:60443/api/log';
 
 
 @Injectable({
@@ -28,11 +25,11 @@ export class LogService {
   constructor(private http: HttpClient) { }
 
   getLogs(): Observable<any> {
-    return this.http.get(apiUrl , httpOptions);
+    return this.http.get(apiUrl);
   }
 
   getLogsFilter(filter): Observable<any> {
-    return this.http.post(apiUrl, filter, httpOptions);
+    return this.http.post(apiUrl, filter);
   }
 
   getLog(id: number) {
@@ -41,17 +38,17 @@ export class LogService {
   }
 
   addLog(log): Observable<log> {
-    return this.http.post<log>(apiUrl, log, httpOptions);
+    return this.http.post<log>(apiUrl, log);
   }
 
   updateLog(id, log): Observable<any> {
     const url = `${apiUrl}/${id}`;
-    return this.http.put(url, log, httpOptions);
+    return this.http.put(url, log);
   }
 
   deleteLog(id): Observable<log> {
     const url = `${apiUrl}/${id}`;
-    return this.http.delete<log>(url, httpOptions);
+    return this.http.delete<log>(url);
   }
 
 }

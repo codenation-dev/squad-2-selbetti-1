@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
   }
 
   dataSource;
-  displayedColumns: string[] = ['logName', 'level', 'description', 'origin', 'date', 'frequency', 'actions'];
+  displayedColumns: string[] = ['level', 'description', 'origin', 'date', 'frequency', 'actions'];
 
   ngOnInit(): void {
     this.getLogs();
