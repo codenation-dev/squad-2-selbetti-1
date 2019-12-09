@@ -8,6 +8,13 @@ namespace Codenation.ErrorCenter.Services
 {
     public class UserService : IUserService
     {
+        private ErrorCenterContext context;
+
+        public UserService(ErrorCenterContext context)
+        {
+            this.context = context;
+        }
+
         public bool DeleteUserById(int id)
         {
             throw new NotImplementedException();
@@ -25,7 +32,7 @@ namespace Codenation.ErrorCenter.Services
 
         public User FindByUser(User user)
         {
-            throw new NotImplementedException();
+            return context.User.Find(user);
         }
 
         public User Save(User user)

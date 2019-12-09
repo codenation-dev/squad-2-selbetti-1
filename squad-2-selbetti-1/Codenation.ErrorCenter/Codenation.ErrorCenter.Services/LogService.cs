@@ -1,4 +1,5 @@
-﻿using Codenation.ErrorCenter.Models.DTOs;
+﻿using Codenation.ErrorCenter.Models;
+using Codenation.ErrorCenter.Models.DTOs;
 using Codenation.ErrorCenter.Models.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,13 @@ namespace Codenation.ErrorCenter.Services
 {
     public class LogService : ILogService
     {
+        private ErrorCenterContext context;
+
+        public LogService(ErrorCenterContext context)
+        {
+            this.context = context;
+        }
+
         public static List<Log> _listLogs = new List<Log> {
                 new Log {
                    Id = 1,
