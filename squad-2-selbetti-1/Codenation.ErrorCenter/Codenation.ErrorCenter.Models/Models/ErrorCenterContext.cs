@@ -1,7 +1,7 @@
 ﻿using Codenation.ErrorCenter.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Codenation.ErrorCenter.Models
+namespace Codenation.ErrorCenter.Models.Models
 {
     public class ErrorCenterContext : DbContext
     {

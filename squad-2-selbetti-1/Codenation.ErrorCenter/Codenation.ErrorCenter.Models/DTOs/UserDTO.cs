@@ -4,9 +4,9 @@
     {
         public long Id { get; set; }
 
-        public long Name { get; set; }
+        public string Name { get; set; }
 
-        public long Email { get; set; }
+        public string Email { get; set; }
 
         public string Password { get; set; }
 

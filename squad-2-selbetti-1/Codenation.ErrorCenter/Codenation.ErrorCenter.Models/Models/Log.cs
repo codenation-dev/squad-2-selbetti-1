@@ -36,12 +36,10 @@ namespace Codenation.ErrorCenter.Models.Models
         public string Environment { get; set; }
 
         [Column("frequency")]
-        [StringLength(255)]
         [Required]
         public int Frequency { get; set; }
 
         [Column("date")]
-        [StringLength(255)]
         [Required]
         public string Date { get; set; }
         

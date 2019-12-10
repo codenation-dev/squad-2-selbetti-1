@@ -16,12 +16,12 @@ namespace Codenation.ErrorCenter.Models.Models
         [Column("name")]
         [StringLength(255)]
         [Required]
-        public long Name { get; set; }
+        public string Name { get; set; }
 
         [Column("email")]
         [StringLength(255)]
         [Required]
-        public long Email { get; set; }
+        public string Email { get; set; }
 
         [Column("password")]
         [StringLength(255)]

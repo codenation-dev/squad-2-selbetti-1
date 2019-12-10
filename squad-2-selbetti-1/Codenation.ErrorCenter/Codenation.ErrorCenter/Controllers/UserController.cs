@@ -37,7 +37,6 @@ namespace Codenation.ErrorCenter.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
         public ActionResult<UserDTO> Put(UserDTO user)
         {
             if (user == null)
