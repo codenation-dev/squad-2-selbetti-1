@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Codenation.ErrorCenter.Models.Models
 {
-    [Table("user")]
+    [Table("log")]
     public class Log
     {
         [Column("id")]
