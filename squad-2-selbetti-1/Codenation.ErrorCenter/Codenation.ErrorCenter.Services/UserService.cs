@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Codenation.ErrorCenter.Models;
 using Codenation.ErrorCenter.Models.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Codenation.ErrorCenter.Services
 {
@@ -17,27 +19,31 @@ namespace Codenation.ErrorCenter.Services
 
         public bool DeleteUserById(int id)
         {
-            throw new NotImplementedException();
+            context.Users.Remove(context.Users.Find(id));
+            return true;
         }
 
         public IList<User> FindAll()
         {
-            throw new NotImplementedException();
+            return context.Users.Select(x => x).ToList();
         }
 
         public User FindById(int id)
         {
-            throw new NotImplementedException();
+            return context.Users.Find(id);
         }
 
         public User FindByUser(User user)
         {
-            return context.User.Find(user);
+            return context.Users.Find(user);
         }
 
         public User Save(User user)
         {
-            throw new NotImplementedException();
+            var state = user.Id == 0 ? EntityState.Added : EntityState.Modified;
+            context.Entry(user).State = state;
+            context.SaveChanges();
+            return user;
         }
     }
 }

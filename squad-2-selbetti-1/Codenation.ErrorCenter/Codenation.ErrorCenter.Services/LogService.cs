@@ -1,8 +1,10 @@
 ﻿using Codenation.ErrorCenter.Models;
 using Codenation.ErrorCenter.Models.DTOs;
 using Codenation.ErrorCenter.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Codenation.ErrorCenter.Services
 {
@@ -98,27 +100,76 @@ namespace Codenation.ErrorCenter.Services
 
         public IList<Log> FindAllLogs()
         {
-            return _listLogs;
+            return context.Logs.Select(x => x)
+                .Distinct()
+                .ToList();
         }
 
         public IList<Log> FindByFilter(ErrorFilterDTO filter)
         {
-            throw new NotImplementedException();
+            List<Log> logs = context.Logs.Select(x => x)
+                .Distinct()
+                .ToList();
+
+            logs = OrderLogs(logs, filter.order);
+            return SearchByFilter(logs, filter);
         }
 
         public Log FindById(int id)
         {
-            throw new NotImplementedException();
+            return context.Logs.Find(id);
         }
 
         public Log Save(Log log)
         {
-            throw new NotImplementedException();
+            var state = EntityState.Added;
+            context.Entry(log).State = state;
+            context.SaveChanges();
+            return log;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var state = EntityState.Deleted;
+            context.Entry(context.Logs.Find(id)).State = state;
+            context.SaveChanges();
+            return true;
         }
+
+        private List<Log> OrderLogs(List<Log> logs, string orderBy)
+        {
+            if (orderBy == null)
+                return logs;
+
+            orderBy = orderBy.ToLower();
+
+            if (orderBy.Equals("nivel") || orderBy.Equals("nível"))
+                return logs.OrderBy(x => x.Level).ToList();
+
+            if (orderBy.Equals("frequencia") || orderBy.Equals("frequência"))
+                return logs.OrderBy(x => x.Frequency).ToList();
+
+            return logs;
+        }
+
+        private List<Log> SearchByFilter(List<Log> logs, ErrorFilterDTO filter)
+        {
+            if (filter == null || filter.search == null)
+                return logs;
+
+            string filterBy = filter.search.ToLower();
+            string filterContains = filter.searchValue;
+
+            if (filterBy.Equals("descricao") || filterBy.Equals("descrição"))
+                return logs.Where(x => x.Description.Contains(filterContains))
+                    .ToList();
+
+            if (filterBy.Equals("origem"))
+                return logs.Where(x => x.Origin.Contains(filterContains))
+                    .ToList();
+
+            return logs;
+        }
+
     }
 }
