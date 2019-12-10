@@ -100,10 +100,9 @@ namespace Codenation.ErrorCenter.Services
 
         public IList<Log> FindAllLogs()
         {
-            //return context.Logs.Select(x => x)
-            //    .Distinct()
-            //    .ToList();
-            return _listLogs;
+            return context.Logs.Select(x => x)
+                .Distinct()
+                .ToList();
         }
 
         public IList<Log> FindByFilter(ErrorFilterDTO filter)
@@ -123,8 +122,7 @@ namespace Codenation.ErrorCenter.Services
 
         public Log Save(Log log)
         {
-            //TODO rever;
-            var state = EntityState.Added;
+            var state = log.Id == 0 ? EntityState.Added : EntityState.Modified;
             context.Entry(log).State = state;
             context.SaveChanges();
             return log;

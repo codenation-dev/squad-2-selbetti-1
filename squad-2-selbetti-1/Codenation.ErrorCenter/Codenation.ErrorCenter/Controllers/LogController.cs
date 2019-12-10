@@ -44,6 +44,16 @@ namespace Codenation.ErrorCenter.Controllers
             return Ok(service.FindByFilter(filter).Select(x => mapper.Map<LogDTO>(x)));
         }
 
+        [HttpPost]
+        [Route("save")]
+        public ActionResult<LogDTO> Save([FromBody]LogDTO log)
+        {
+            if (log == null)
+                return NoContent();
+
+            return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
+        }
+
         [HttpPut]
         public ActionResult<LogDTO> Put([FromBody]LogDTO log)
         {

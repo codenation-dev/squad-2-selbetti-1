@@ -2,7 +2,7 @@
 
 namespace Codenation.ErrorCenter.Models.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class ErrorCenter : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
