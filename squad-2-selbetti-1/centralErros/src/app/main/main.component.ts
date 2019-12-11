@@ -57,7 +57,11 @@ export class MainComponent implements OnInit {
   }
 
   onFilter() {
-    this.logService.getLogsFilter(this.filter).toPromise();
+    this.logService.getLogsFilter(this.filter).toPromise().then((data) => {
+      console.table(data)
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+  })
     console.table(this.filter)
   }
 

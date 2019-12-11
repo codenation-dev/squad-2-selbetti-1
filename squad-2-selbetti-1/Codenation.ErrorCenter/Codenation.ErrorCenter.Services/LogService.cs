@@ -143,10 +143,10 @@ namespace Codenation.ErrorCenter.Services
 
             orderBy = orderBy.ToLower();
 
-            if (orderBy.Equals("nivel") || orderBy.Equals("nível"))
+            if (orderBy.Equals("level"))
                 return logs.OrderBy(x => x.Level).ToList();
 
-            if (orderBy.Equals("frequencia") || orderBy.Equals("frequência"))
+            if (orderBy.Equals("frequency"))
                 return logs.OrderBy(x => x.Frequency).ToList();
 
             return logs;
@@ -158,28 +158,42 @@ namespace Codenation.ErrorCenter.Services
                 return logs;
 
             string environment = filter.environment;
-            string filterBy = filter.search.ToLower();
-            string filterContains = filter.searchValue;
 
-            if (environment != null && !environment.Equals("") )
+            if (environment != null && !environment.Trim().Equals("") )
                 logs = logs.Where(x => x.Environment.Equals(environment))
                     .ToList();
 
-            if(filterContains != null && filterBy != null)
+            if (!ContaisValidFilter(filter))
+                return logs;
 
-            if (filterBy.Equals("nivel"))
+            string filterBy = filter.search;
+            string filterContains = filter.searchValue;
+            filterBy = filterBy.ToLower();
+
+            if (filterBy.Equals("level"))
                 logs = logs.Where(x => x.Level.Contains(filterContains))
                     .ToList();
 
-            if (filterBy.Equals("descricao") || filterBy.Equals("descrição"))
+            if (filterBy.Equals("description"))
                 logs = logs.Where(x => x.Description.Contains(filterContains))
                     .ToList();
 
-            if (filterBy.Equals("origem"))
+            if (filterBy.Equals("origin"))
                 logs = logs.Where(x => x.Origin.Contains(filterContains))
                     .ToList();
 
             return logs;
+        }
+
+        private bool ContaisValidFilter(ErrorFilterDTO filter)
+        {
+            if (filter.search == null || filter.search.Trim().Equals(""))
+                return false;
+
+            if (filter.searchValue == null || filter.searchValue.Trim().Equals(""))
+                return false;
+
+            return true;
         }
 
     }
