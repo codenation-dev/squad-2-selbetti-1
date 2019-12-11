@@ -16,10 +16,10 @@ export class MainComponent implements OnInit {
   hasData;
 
   filter = {
-    environment: ' ',
-    order: ' ',
-    search: ' ',
-    searchValue: ' '
+    environment: '',
+    order: '',
+    search: '',
+    searchValue: ''
   }
 
   dataSource;
