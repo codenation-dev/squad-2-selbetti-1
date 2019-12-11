@@ -37,10 +37,21 @@ namespace Codenation.ErrorCenter.Controllers
         }
 
         [HttpPut]
-        public ActionResult<UserDTO> Put(UserDTO user)
+        [Route("save")]
+        public ActionResult<UserDTO> Change(UserDTO user)
         {
-            if (user == null)
-                return NoContent();
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            return Ok(mapper.Map<UserDTO>(service.Save(mapper.Map<User>(user))));
+        }
+
+        [HttpPost]
+        [Route("save")]
+        public ActionResult<UserDTO> Save(UserDTO user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             return Ok(mapper.Map<UserDTO>(service.Save(mapper.Map<User>(user))));
         }

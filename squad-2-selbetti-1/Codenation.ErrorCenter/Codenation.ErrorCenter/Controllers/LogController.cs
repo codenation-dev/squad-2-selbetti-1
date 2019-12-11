@@ -38,8 +38,8 @@ namespace Codenation.ErrorCenter.Controllers
         [HttpPost]
         public ActionResult<List<LogDTO>> FindByFilter([FromBody]ErrorFilterDTO filter)
         {
-            if (filter == null)
-                return NoContent();
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             return Ok(service.FindByFilter(filter).Select(x => mapper.Map<LogDTO>(x)));
         }
@@ -58,8 +58,8 @@ namespace Codenation.ErrorCenter.Controllers
         [Route("save")]
         public ActionResult<LogDTO> Put([FromBody]LogDTO log)
         {
-            if (log == null)
-                return NoContent();
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
         }

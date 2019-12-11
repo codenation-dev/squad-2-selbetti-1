@@ -19,8 +19,11 @@ namespace Codenation.ErrorCenter.Services
 
         public bool DeleteUserById(int id)
         {
+            User user = context.Users.Find(id);
+            if (user == null)
+                return false;
             var state = EntityState.Deleted;
-            context.Entry(context.Users.Find(id)).State = state;
+            context.Entry(user).State = state;
             context.SaveChanges();
             return true;
         }

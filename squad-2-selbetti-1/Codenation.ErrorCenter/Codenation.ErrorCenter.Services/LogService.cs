@@ -161,9 +161,11 @@ namespace Codenation.ErrorCenter.Services
             string filterBy = filter.search.ToLower();
             string filterContains = filter.searchValue;
 
-            if (environment != null && !environment.Equals(""))
+            if (environment != null && !environment.Equals("") )
                 logs = logs.Where(x => x.Environment.Equals(environment))
                     .ToList();
+
+            if(filterContains != null && filterBy != null)
 
             if (filterBy.Equals("nivel"))
                 logs = logs.Where(x => x.Level.Contains(filterContains))
