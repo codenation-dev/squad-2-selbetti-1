@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Codenation.ErrorCenter.Models.Migrations
 {
     [DbContext(typeof(ErrorCenterContext))]
-    [Migration("20191210212202_ErrorCenter")]
+    [Migration("20191210235926_ErrorCenter")]
     partial class ErrorCenter
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20191210211711_ErrorCenter.cs" />
     <Compile Remove="Migrations\20191210211711_ErrorCenter.Designer.cs" />
+    <Compile Remove="Migrations\20191210212202_ErrorCenter.cs" />
+    <Compile Remove="Migrations\20191210212202_ErrorCenter.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

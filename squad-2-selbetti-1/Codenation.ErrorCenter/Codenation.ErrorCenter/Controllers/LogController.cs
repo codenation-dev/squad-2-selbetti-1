@@ -55,6 +55,7 @@ namespace Codenation.ErrorCenter.Controllers
         }
 
         [HttpPut]
+        [Route("save")]
         public ActionResult<LogDTO> Put([FromBody]LogDTO log)
         {
             if (log == null)
