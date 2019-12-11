@@ -54,13 +54,14 @@ namespace Codenation.ErrorCenter.Controllers
             return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
         }
 
+        //Method used to change archived status
         [HttpPut]
         [Route("save")]
         public ActionResult<LogDTO> Put([FromBody]LogDTO log)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-
+            log.IsArchived = !log.IsArchived;
             return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
         }
 

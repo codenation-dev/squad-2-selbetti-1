@@ -130,8 +130,12 @@ namespace Codenation.ErrorCenter.Services
 
         public bool Delete(int id)
         {
+            Log log = context.Logs.Find(id);
+            if (log == null)
+                return false;
+
             var state = EntityState.Deleted;
-            context.Entry(context.Logs.Find(id)).State = state;
+            context.Entry(log).State = state;
             context.SaveChanges();
             return true;
         }
@@ -157,9 +161,9 @@ namespace Codenation.ErrorCenter.Services
             if (filter == null)
                 return logs;
 
-            string environment = filter.environment;
+            string environment = TranslateEnvironment(filter.environment);
 
-            if (environment != null && !environment.Trim().Equals("") )
+            if (environment != null && !environment.Trim().Equals(""))
                 logs = logs.Where(x => x.Environment.Equals(environment))
                     .ToList();
 
@@ -196,5 +200,21 @@ namespace Codenation.ErrorCenter.Services
             return true;
         }
 
+        private string TranslateEnvironment(string s)
+        {
+            if (s == null)
+                return s;
+
+            if (s.Equals("production"))
+                return "produção";
+
+            if (s.Equals("test"))
+                return "homologação";
+
+            if (s.Equals("development"))
+                return "desenvolvimento"; 
+
+            return "";
+        }
     }
 }

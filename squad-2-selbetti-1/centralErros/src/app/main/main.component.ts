@@ -13,6 +13,8 @@ export class MainComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  hasData;
+
   filter = {
     environment: ' ',
     order: ' ',
@@ -31,6 +33,7 @@ export class MainComponent implements OnInit {
         this.logService.getLogs().toPromise().then((data) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
+        this.hasData =  data.length > 0;
     })
   }
 
@@ -61,6 +64,7 @@ export class MainComponent implements OnInit {
       console.table(data)
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
+      this.hasData =  data.length > 0;
   })
     console.table(this.filter)
   }

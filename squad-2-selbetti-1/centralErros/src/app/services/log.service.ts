@@ -42,7 +42,7 @@ export class LogService {
   }
 
   updateLog(id, log): Observable<any> {
-    const url = `${apiUrl}/${id}`;
+    const url = `${apiUrl}/save`;
     return this.http.put(url, log);
   }
 
