@@ -154,18 +154,27 @@ namespace Codenation.ErrorCenter.Services
 
         private List<Log> SearchByFilter(List<Log> logs, ErrorFilterDTO filter)
         {
-            if (filter == null || filter.search == null)
+            if (filter == null)
                 return logs;
 
+            string environment = filter.environment;
             string filterBy = filter.search.ToLower();
             string filterContains = filter.searchValue;
 
+            if (environment != null && !environment.Equals(""))
+                logs = logs.Where(x => x.Environment.Equals(environment))
+                    .ToList();
+
+            if (filterBy.Equals("nivel"))
+                logs = logs.Where(x => x.Level.Contains(filterContains))
+                    .ToList();
+
             if (filterBy.Equals("descricao") || filterBy.Equals("descrição"))
-                return logs.Where(x => x.Description.Contains(filterContains))
+                logs = logs.Where(x => x.Description.Contains(filterContains))
                     .ToList();
 
             if (filterBy.Equals("origem"))
-                return logs.Where(x => x.Origin.Contains(filterContains))
+                logs = logs.Where(x => x.Origin.Contains(filterContains))
                     .ToList();
 
             return logs;
