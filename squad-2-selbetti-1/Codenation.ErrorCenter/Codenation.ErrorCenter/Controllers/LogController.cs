@@ -48,8 +48,8 @@ namespace Codenation.ErrorCenter.Controllers
         [Route("save")]
         public ActionResult<LogDTO> Save([FromBody]LogDTO log)
         {
-            if (log == null)
-                return NoContent();
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
         }
