@@ -49,7 +49,7 @@
 		</div>
 	</div>
 
-	<div class="mat-elevation-z8">
+	<div class="mat-elevation-z8"  *ngIf="dataSource">
 		<div class="table-responsive">
 			<table mat-table [dataSource]="dataSource">
 			
@@ -104,5 +104,13 @@
 			
 		</div>
 		<mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+	</div>
+
+	<div class="blankslate" *ngIf="!dataSource">
+		<div class="icon">
+			<i class="fas fa-ghost"></i>
+		</div>
+		<div class="shadowGhost"></div>
+		<span class="text-center">Opss.. Não localizamos nenhum log.</span>
 	</div>
 </div>
