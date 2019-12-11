@@ -24,7 +24,14 @@ namespace Codenation.ErrorCenter.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<LogDTO>> Get()
         {
-            return Ok(service.FindAllLogs().Select(x => mapper.Map<LogDTO>(x)));
+            try
+            {
+                return Ok(service.FindAllLogs().Select(x => mapper.Map<LogDTO>(x)));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
 
@@ -32,26 +39,50 @@ namespace Codenation.ErrorCenter.Controllers
         [Route("{id}")]
         public ActionResult<LogDTO> Get(int id)
         {
-            return Ok(mapper.Map<LogDTO>(service.FindById(id)));
+            try
+            {
+
+                return Ok(mapper.Map<LogDTO>(service.FindById(id)));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
         public ActionResult<List<LogDTO>> FindByFilter([FromBody]ErrorFilterDTO filter)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            try
+            {
 
-            return Ok(service.FindByFilter(filter).Select(x => mapper.Map<LogDTO>(x)));
+                if (!ModelState.IsValid)
+                    return BadRequest();
+
+                return Ok(service.FindByFilter(filter).Select(x => mapper.Map<LogDTO>(x)));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
         [Route("save")]
         public ActionResult<LogDTO> Save([FromBody]LogDTO log)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            try
+            {
 
-            return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
+                if (!ModelState.IsValid)
+                    return BadRequest();
+
+                return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         //Method used to change archived status
@@ -59,21 +90,36 @@ namespace Codenation.ErrorCenter.Controllers
         [Route("save")]
         public ActionResult<LogDTO> Put([FromBody]LogDTO log)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-            log.IsArchived = !log.IsArchived;
-            return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
+            try
+            {
+
+                if (!ModelState.IsValid)
+                    return BadRequest();
+                log.IsArchived = !log.IsArchived;
+                return Ok(mapper.Map<LogDTO>(service.Save(mapper.Map<Log>(log))));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete]
         [Route("{id}")]
         public ActionResult<bool> Delete(int id)
         {
-            bool sucess = service.Delete(id);
-            if (!sucess)
-                return BadRequest();
+            try
+            {
+                bool sucess = service.Delete(id);
+                if (!sucess)
+                    return BadRequest();
 
-            return Ok(sucess);
+                return Ok(sucess);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
     }
 }

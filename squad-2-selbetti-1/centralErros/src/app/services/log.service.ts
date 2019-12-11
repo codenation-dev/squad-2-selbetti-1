@@ -14,7 +14,8 @@ export class log {
   isArquived: boolean;
 }
 
-const apiUrl = (window.location.origin + '/api/log').replace("4200", "60443");
+//const apiUrl = (window.location.origin + '/api/log').replace("4200", "60443");
+const apiUrl = 'http://localhost:60443/api/log';
 
 
 
