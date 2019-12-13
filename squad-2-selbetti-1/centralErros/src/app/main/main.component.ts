@@ -13,15 +13,17 @@ export class MainComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  hasData;
+
   filter = {
-    environment: ' ',
-    order: ' ',
-    search: ' ',
-    searchValue: ' '
+    environment: '',
+    order: '',
+    search: '',
+    searchValue: ''
   }
 
   dataSource;
-  displayedColumns: string[] = ['logName', 'level', 'description', 'origin', 'date', 'frequency', 'actions'];
+  displayedColumns: string[] = ['level', 'description', 'origin', 'date', 'frequency', 'actions'];
 
   ngOnInit(): void {
     this.getLogs();
@@ -31,6 +33,7 @@ export class MainComponent implements OnInit {
         this.logService.getLogs().toPromise().then((data) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
+        this.hasData =  data.length > 0;
     })
   }
 
@@ -57,7 +60,12 @@ export class MainComponent implements OnInit {
   }
 
   onFilter() {
-    this.logService.getLogsFilter(this.filter).toPromise();
+    this.logService.getLogsFilter(this.filter).toPromise().then((data) => {
+      console.table(data)
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.hasData =  data.length > 0;
+  })
     console.table(this.filter)
   }
 
